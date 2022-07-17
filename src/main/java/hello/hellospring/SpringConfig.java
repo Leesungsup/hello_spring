@@ -1,19 +1,30 @@
 package hello.hellospring;
 
+import hello.hellospring.repository.JdbcMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberReopository;
 import hello.hellospring.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class SpringConfig {
-    /*@Bean
+    private DataSource dataSource;
+
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    @Bean
     public MemberService memberService(){
         return new MemberService(memoryMemberReopository());
     }
     @Bean
-    public MemoryMemberReopository memoryMemberReopository(){
-        return new MemoryMemberReopository();
-    }*/
+    public MemberRepository memoryMemberReopository(){
+        //return new MemoryMemberReopository();
+        return new JdbcMemberRepository(dataSource);
+    }
 }

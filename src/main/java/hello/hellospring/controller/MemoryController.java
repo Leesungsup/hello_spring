@@ -15,14 +15,16 @@ public class MemoryController {
     private final MemberService memberService;
     @Autowired
     private MemoryController(MemberService memberService){
+
         this.memberService=memberService;
     }
 
-    @GetMapping("/member/new")
+    @GetMapping("/members/new")
     public String createForm(){
+
         return "members/createMemberForm";
     }
-    @PostMapping("/member/new")
+    @PostMapping("/members/new")
     public String create(MemberForm form){
         Member member = new Member();
         member.setName(form.getName());
