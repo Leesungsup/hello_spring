@@ -1,6 +1,7 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class JdbcMemberRepository implements MemberRepository{
     private final DataSource dataSource;
 
+    @Autowired
     public JdbcMemberRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -24,7 +26,8 @@ public class JdbcMemberRepository implements MemberRepository{
         ResultSet rs = null;
         try {
             conn = getConnection();
-            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //Connection에 넣을 SQL문을 준비한다.
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//옵션. DB에서 자동으로 생성된 키를 가져온다.
             pstmt.setString(1, member.getName());
             pstmt.executeUpdate();
             rs = pstmt.getGeneratedKeys();

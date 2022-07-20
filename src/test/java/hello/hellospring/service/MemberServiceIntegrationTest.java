@@ -34,10 +34,10 @@ public class MemberServiceIntegrationTest {
     @Test
     void 중복회원예외() {
         Member member1 = new Member();
-        member1.setName("spring");
+        member1.setName("spring6");
 
         Member member2 = new Member();
-        member2.setName("spring");
+        member2.setName("spring5");
 
         memberService.join(member1);
 
