@@ -11,10 +11,18 @@ import java.util.List;
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
-    public void write(Board board){
+    public void boardWrite(Board board){
         boardRepository.save(board);
     }
     public List<Board> boardList(){
         return boardRepository.findAll();
     }
+    public Board boardView(Integer number){
+        return boardRepository.findById(number).get();
+    }
+    public void boardDelete(Integer number){
+        boardRepository.deleteById(number);
+        return;
+    }
+
 }

@@ -19,7 +19,7 @@ public class BoardController {
     @PostMapping("/board/writepro")
     public String boardWritepro(Board board)
     {
-        boardService.write(board);
+        boardService.boardWrite(board);
         System.out.println(board.getTitle());
         System.out.println("내용"+board.getContent());
         return "";
@@ -29,4 +29,15 @@ public class BoardController {
         model.addAttribute("list",boardService.boardList());
         return "boardlist";
     }
+    @GetMapping("/board/view")
+    public String boardView(Model model,Integer id){
+        model.addAttribute("board",boardService.boardView(id));
+        return "boardview";
+    }
+    @GetMapping("/board/delete")
+    public String boardDelete(Integer id){
+        boardService.boardDelete(id);
+        return "redirect:/board/list";
+    }
 }
+
