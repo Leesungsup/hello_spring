@@ -32,8 +32,14 @@ public class BoardController {
         return "message";
     }
     @GetMapping("/board/list")
-    public String boardList(Model model,@PageableDefault(page = 0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
-        Page<Board> list = boardService.boardList(pageable);
+    public String boardList(Model model,@PageableDefault(page = 0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable,String searchKeyword) {
+        Page<Board> list=null;
+        if(searchKeyword!=null){
+
+            list=boardService.boardSearchList(searchKeyword,pageable);
+        }else{
+            list=boardService.boardList(pageable);
+        }
         int nowPage=list.getPageable().getPageNumber()+1;
         int startPage=Math.max(nowPage-4,1);
         int endPage=Math.min(nowPage+5,list.getTotalPages());
@@ -66,5 +72,6 @@ public class BoardController {
         boardService.boardWrite(originboard);
         return "redirect:/board/list";
     }
+
 }
 
