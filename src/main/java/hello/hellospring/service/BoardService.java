@@ -3,6 +3,8 @@ package hello.hellospring.service;
 import hello.hellospring.entity.Board;
 import hello.hellospring.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,9 @@ public class BoardService {
     public void boardWrite(Board board){
         boardRepository.save(board);
     }
-    public List<Board> boardList(){
-        return boardRepository.findAll();
+    public Page<Board> boardList(Pageable pageable){
+
+        return boardRepository.findAll(pageable);
     }
     public Board boardView(Integer number){
         return boardRepository.findById(number).get();
